@@ -3,6 +3,8 @@ from fastapi.testclient import TestClient
 from src.main import app
 from response import get_all_book
 
+print(get_all_book)
+
 client = TestClient(app)
 
 
@@ -12,10 +14,10 @@ def test_read_item():
     assert response.json() == get_all_book
 
 
-# def test_read_item_bad_token():
-#     response = client.get("/items/foo", headers={"X-Token": "hailhydra"})
-#     assert response.status_code == 400
-#     assert response.json() == {"detail": "Invalid X-Token header"}
+def test_read_item_bad_token():
+    response = client.get("/book/2")
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
 
 
 # def test_read_inexistent_item():
